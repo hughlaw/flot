@@ -2721,7 +2721,7 @@ Licensed under the MIT license.
                 return;
             }
 
-            var fragments = [], entries = [], rowStarted = false,
+            var fragments = [], entries = [],
                 lf = options.legend.labelFormatter, s, label;
 
             // Build a list of legend entries, with each having a label and a color
@@ -2762,25 +2762,15 @@ Licensed under the MIT license.
 
                 var entry = entries[i];
 
-                if (i % options.legend.noColumns == 0) {
-                    if (rowStarted)
-                        fragments.push('</tr>');
-                    fragments.push('<tr>');
-                    rowStarted = true;
-                }
-
                 fragments.push(
-                    '<li class="flot-series"><div class="flot-legend-marker" style="background-color:' + entry.color + '"></div>'+ entry.label +'</li>'
+                    '<li><span style="background-color:' + entry.color + '"></span>'+ entry.label +'</li>'
                 );
             }
-
-            if (rowStarted)
-                fragments.push('</tr>');
 
             if (fragments.length == 0)
                 return;
 
-            var legendList = '<ul class="flot-legend">' + fragments.join("") + '</ul>';
+            var legendList = '<ul class="list-unstyled">' + fragments.join("") + '</ul>';
             if (options.legend.container != null)
                 $(options.legend.container).html(legendList);
             else {
@@ -2797,7 +2787,7 @@ Licensed under the MIT license.
                     pos += 'right:' + (m[0] + plotOffset.right) + 'px;';
                 else if (p.charAt(1) == "w")
                     pos += 'left:' + (m[0] + plotOffset.left) + 'px;';
-                var legend = $('<div class="legend">' + legendList.replace('style="', 'style="position:absolute;' + pos +';') + '</div>').appendTo(placeholder);
+                var legend = $('<div class="chart-legend">' + legendList.replace('style="', 'style="position:absolute;' + pos +';') + '</div>').appendTo(placeholder);
                 if (options.legend.backgroundOpacity != 0.0) {
                     // put in the transparent background
                     // separately to avoid blended labels and
